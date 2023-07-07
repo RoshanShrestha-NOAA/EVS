@@ -133,13 +133,10 @@ if [ $USE_CFP = YES ]; then
 	[[ $status -eq 0 ]] && echo "Successfully ran mesoscale_stats_grid2obs_create_poe_job_scripts.py ($job_type)"
 fi
 
-
 echo "*****************************"
 echo "Reformat jobs begin"
 date
 echo "*****************************"
-
-
 
 # Run All NAM grid2obs/stats Reformat Jobs
 chmod u+x ${DATA}/${VERIF_CASE}/${STEP}/METplus_job_scripts/${job_type}/*
@@ -192,9 +189,9 @@ for NEST in $NEST_LIST; do
 			export evs_run_mode=$evs_run_mode
 			source $config
 		fi
-           if [ ${#VAR_NAME_LIST} -lt 1 ]; then
-                continue
-           fi
+     		if [ ${#VAR_NAME_LIST} -lt 1 ]; then
+			continue
+     		fi
 
 		for VAR_NAME in $VAR_NAME_LIST; do
 			export VAR_NAME=$VAR_NAME
@@ -232,7 +229,6 @@ if [ $USE_CFP = YES ]; then
     	    [[ $status -eq 0 ]] && echo "Successfully ran mesoscale_stats_grid2obs_create_poe_job_scripts.py ($job_type)"
 fi
 
-
 echo "*****************************"
 echo "Generate jobs begin"
 date
@@ -269,7 +265,6 @@ else
 	done
 fi
 
-
 echo "*****************************"
 echo "Generate jobs done"
 date 
@@ -304,7 +299,6 @@ for VERIF_TYPE in $VERIF_TYPES; do
     export njob=$((njob+1))
 done
 
-
 # Create Gather POE Job Scripts
 if [ $USE_CFP = YES ]; then
     python $USHevs/mesoscale/mesoscale_stats_grid2obs_create_poe_job_scripts.py
@@ -313,12 +307,10 @@ if [ $USE_CFP = YES ]; then
     [[ $status -eq 0 ]] && echo "Successfully ran mesoscale_stats_grid2obs_create_poe_job_scripts.py ($job_type)"
 fi
 
-
 echo "*****************************"
 echo "Gather jobs begin"
 date 
 echo "*****************************"
-
 
 # Run All NAM grid2obs/stats Gather Jobs
 chmod u+x ${DATA}/${VERIF_CASE}/${STEP}/METplus_job_scripts/${job_type}/*
@@ -356,16 +348,15 @@ echo "Gather jobs done"
 date 
 echo "*****************************"
 
-
 # Copy stat output files to EVS COMOUTsmall directory
 if [ $SENDCOM = YES ]; then
    for VERIF_TYPE in $VERIF_TYPES;do
       for MODEL_DIR_PATH in $MET_PLUS_OUT/$VERIF_TYPE/point_stat/$MODELNAME*; do
 	if [ -d $MODEL_DIR_PATH ]; then
            MODEL_DIR=$(echo ${MODEL_DIR_PATH##*/})
-           mkdir -p $COMOUTsmall/$MODEL_DIR
+           mkdir -p $COMOUTsmall
            for FILE in $MODEL_DIR_PATH/*; do
-             cp -v $FILE $COMOUTsmall/$MODEL_DIR/.
+             cp -v $FILE $COMOUTsmall/.
            done
 	fi
       done
@@ -376,7 +367,6 @@ echo "*****************************"
 echo "Gather3 jobs begin"
 date 
 echo "*****************************"
-
     
 # Final Stats Job
 # if [ "$cyc" -ge "$last_cyc" ]; then
@@ -444,13 +434,11 @@ echo "*****************************"
     fi
 #fi
 
-
 echo "*****************************"
 echo "Gather3 jobs done"
 date
 echo "*****************************"
- 
-  
+   
   # Copy output files into the correct EVS COMOUT directory
     if [ $SENDCOM = YES ]; then
       for MODEL_DIR_PATH in $MET_PLUS_OUT/gather_small/stat_analysis/$MODELNAME*; do
