@@ -79,7 +79,7 @@ class Paths():
 
 class Presets():
     def __init__(self):
-      
+
         self.level_presets = {
             'all': 'P1000,P925,P850,P700,P500,P400,P300,P200,P150,P100,P50',
             'ltrop': 'P1000,P950,P900,P850,P800,P750,P700,P650,P600,P550,P500',
@@ -564,6 +564,10 @@ class ModelSpecs():
                 'settings_key':'RRFS_A', 
                 'plot_name':'RRFS-A'
             },
+            'rrfs': {
+                'settings_key':'RRFS', 
+                'plot_name':'RRFS'
+            },
             'RRFS_A_AK': {
                 'settings_key':'RRFS_A', 
                 'plot_name':'RRFS-A Alaska'
@@ -697,6 +701,9 @@ class ModelSpecs():
             'NAM_NEST': {'color': '#1e3cff',
                      'marker': 'o', 'markersize': 10,
                      'linestyle': 'solid', 'linewidth': 1.8},
+            'RRFS': {'color': '#696969',
+                     'marker': 'o', 'markersize': 10,
+                     'linestyle': 'solid', 'linewidth': 1.8},
             'RRFS_A': {'color': '#00dc00',
                       'marker': 'o', 'markersize': 10,
                       'linestyle': 'solid', 'linewidth': 1.8},
@@ -793,6 +800,10 @@ class Reference():
                 'convert_to': 'in',
                 'formula': self.formulas.m_snow_to_in
             },
+            'decimal': {
+                'convert_to': '%',
+                'formula': self.formulas.dec_to_perc
+            },
         }
 
         '''
@@ -870,6 +881,7 @@ class Reference():
                                     'APCP_24': ('Accumulated'
                                                 + ' Precipitation'),
                                     'PWAT': 'Precipitable Water',
+                                    'PTYPE': 'Precipitation Type',
                                     'CWAT': 'Cloud Water',
                                     'TCDC': 'Cloud Area Fraction',
                                     'HGTCLDCEIL': 'Cloud Ceiling Height',
@@ -1092,7 +1104,7 @@ class Reference():
                                   },
                                   'PacificNW': {
                                       'long_name': 'Pacific Northwest',
-                                      'save_name': 'buk_npw',
+                                      'save_name': 'buk_pnw',
                                   },
                                   'SWC': {
                                       'long_name': 'Southwest Coast',
@@ -1392,6 +1404,13 @@ class Reference():
                                         'UFSS','UFSS_BCL','UFSS_BCU',
                                         'F_RATE','F_RATE_BCL','F_RATE_BCU',
                                         'O_RATE','O_RATE_BCL','O_RATE_BCU'],
+                              'ECNT':['TOTAL', 'N_ENS', 'CRPS', 'CRPSS', 'IGN',
+                                      'ME', 'RMSE', 'SPREAD',
+                                      'ME_OERR', 'RMSE_OERR', 'SPREAD_OERR',
+                                      'SPREAD_PLUS_OERR', 'CRPSCL', 'CRPS_EMP',
+                                      'CRPSCL_EMP', 'CRPSS_EMP',  'CRPS_EMP_FAIR',
+                                      'SPREAD_MD', 'MAE', 'MAE_OERR', 'BIAS_RATIO',
+                                      'N_GE_OBS', 'ME_GE_OBS', 'N_LT_OBS', 'ME_LT_OBS'],
                               'GRAD':['TOTAL','FGBAR','OGBAR','MGBAR','EGBAR',
                                       'S1','S1_OG','FGOG_RATIO','DX','DY'],
                               'DMAP':['TOTAL','FY','OY','FBIAS','BADDELEY',
