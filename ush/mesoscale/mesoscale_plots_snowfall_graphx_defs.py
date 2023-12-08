@@ -1,11 +1,20 @@
 #!/usr/bin/env python3
+# =============================================================================
+#
+# NAME: mesoscale_plots_snowfall_graphx_defs.py
+# CONTRIBUTOR(S): Marcel Caron, marcel.caron@noaa.gov, NOAA/NWS/NCEP/EMC-VPPPGB
+# CONTRIBUTOR(S): Roshan Shrestha, roshan.shrestha@noaa.gov, NOAA/NWS/NCEP/EMC-VPPPGB
+# PURPOSE: Graphics definitions for the Mesoscale Snowfall Plots jobs
+#
+# =============================================================================
+
 import os
 from datetime import datetime, timedelta as td
 graphics = {
     'mesoscale':{
         'snowfall':{
             'nohrsc':{
-                'domain_group1, nam, rap?shift=-3':{
+                'domain_group1, nam, rap?shift=-3, rrfs':{
                     'threshold_average':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',

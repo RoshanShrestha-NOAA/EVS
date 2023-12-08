@@ -1,11 +1,20 @@
 #!/usr/bin/env python3
+# =============================================================================
+#
+# NAME: mesoscale_plots_precip_graphx_defs.py
+# CONTRIBUTOR(S): Marcel Caron, marcel.caron@noaa.gov, NOAA/NWS/NCEP/EMC-VPPPGB
+# CONTRIBUTOR(S): Roshan Shrestha, roshan.shrestha@noaa.gov, NOAA/NWS/NCEP/EMC-VPPPGB
+# PURPOSE: Graphics definitions for the Mesoscale Precip Plots jobs
+#
+# =============================================================================
+
 import os
 from datetime import datetime, timedelta as td
 graphics = {
     'mesoscale':{
         'precip':{
             'ccpa':{
-                'domain_group1, nam, rap?shift=-3, gfs':{
+                'domain_group1, nam, rap?shift=-3, gfs, rrfs':{
                     'threshold_average':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',
@@ -119,7 +128,7 @@ graphics = {
                         }
                     },
                 },
-                'domain_group2, nam, rap?shift=-3, gfs':{
+                'domain_group2, nam, rap?shift=-3, gfs, rrfs':{
                     'threshold_average':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',
@@ -233,7 +242,7 @@ graphics = {
                         }
                     },
                 },
-                'domain_group3, nam, rap?shift=-3, gfs':{
+                'domain_group3, nam, rap?shift=-3, gfs, rrfs':{
                     'threshold_average':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',
@@ -347,7 +356,7 @@ graphics = {
                         }
                     },
                 },
-                'domain_group4, nam, rap?shift=-3, gfs':{
+                'domain_group4, nam, rap?shift=-3, gfs, rrfs':{
                     'threshold_average':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',
@@ -461,7 +470,7 @@ graphics = {
                         }
                     },
                 },
-                'domain_group5, nam, rap?shift=-3, gfs':{
+                'domain_group5, nam, rap?shift=-3, gfs, rrfs':{
                     'threshold_average':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',
@@ -647,7 +656,7 @@ graphics = {
                         }
                     },
                 },
-                'domain_group2, nam, rap?shift=-3':{
+                'domain_group2, nam, rap?shift=-3, gfs, rrfs':{
                     'threshold_average':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',
@@ -719,7 +728,7 @@ graphics = {
                         }
                     },
                 },
-                'domain_group3, nam, rap?shift=-3':{
+                'domain_group3, nam, rap?shift=-3, gfs, rrfs':{
                     'threshold_average':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',
@@ -791,7 +800,7 @@ graphics = {
                         }
                     },
                 },
-                'domain_group4, nam, rap?shift=-3':{
+                'domain_group4, nam, rap?shift=-3, gfs, rrfs':{
                     'threshold_average':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',
@@ -863,7 +872,7 @@ graphics = {
                         }
                     },
                 },
-                'domain_group5, nam, rap?shift=-3':{
+                'domain_group5, nam, rap?shift=-3, gfs, rrfs':{
                     'threshold_average':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',
@@ -935,7 +944,7 @@ graphics = {
                         }
                     },
                 },
-                'nam, rap, gfs, ndas, ndassoil':{
+                'nam, rap, gfs, ndas, ndassoil, rrfs':{
                     'spatial_map':{
                         'DATE_TYPE':'VALID',
                         'VALID_BEG':'',
@@ -966,7 +975,7 @@ graphics = {
                 }
             },
             'mrms':{
-                'nam, gfs':{
+                'nam, gfs, rrfs':{
                     'spatial_map':{
                         'DATE_TYPE':'VALID',
                         'VALID_BEG':'',
@@ -995,7 +1004,7 @@ graphics = {
                         }
                     },
                 },
-                'domain_group1, nam, rap, gfs':{
+                'domain_group1, nam, rap, gfs, rrfs':{
                     'spatial_map':{
                         'DATE_TYPE':'VALID',
                         'VALID_BEG':'',
@@ -1024,7 +1033,7 @@ graphics = {
                         }
                     },
                 },
-                'domain_group2, nam, rap, gfs':{
+                'domain_group2, nam, rap, gfs, rrfs':{
                     'spatial_map':{
                         'DATE_TYPE':'VALID',
                         'VALID_BEG':'',
@@ -1053,7 +1062,7 @@ graphics = {
                         }
                     },
                 },
-                'nam, rap?shift=-3':{
+                'nam, rap?shift=-3, gfs, rrfs':{
                     'threshold_average':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',
