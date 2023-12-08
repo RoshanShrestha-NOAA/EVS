@@ -4,7 +4,7 @@ graphics = {
     'mesoscale':{
         'headline':{
             'metar':{
-                'set1, nam, rap?shift=-3, gfs': {
+                'set1, nam, rap?shift=-3, gfs, rrfs': {
                     'lead_average':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',
@@ -59,7 +59,7 @@ graphics = {
                         }
                     },
                 },
-                'set2, nam, rap?shift=-3, gfs': {
+                'set2, nam, rap?shift=-3, gfs, rrfs': {
                     'lead_average':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',
@@ -114,7 +114,7 @@ graphics = {
                         }
                     },
                 },
-                'set3, nam, rap?shift=-3, gfs': {
+                'set3, nam, rap?shift=-3, gfs, rrfs': {
                     'lead_average':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',
@@ -169,7 +169,7 @@ graphics = {
                         }
                     },
                 },
-                'set4, nam, rap?shift=-3, gfs': {
+                'set4, nam, rap?shift=-3, gfs, rrfs': {
                     'lead_average':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',

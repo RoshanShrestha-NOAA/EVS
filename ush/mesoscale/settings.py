@@ -1,4 +1,13 @@
 #!/usr/bin/env python3
+# =============================================================================
+#
+# NAME: settings.py
+# CONTRIBUTOR(S): Marcel Caron, marcel.caron@noaa.gov, NOAA/NWS/NCEP/EMC-VPPPGB
+# CONTRIBUTOR(S): Roshan Shrestha, roshan.shrestha@noaa.gov, NOAA/NWS/NCEP/EMC-VPPPGB
+# PURPOSE: General settings used for Mesoscale plotting scripts
+#
+# =============================================================================
+
 import os
 from datetime import datetime, timedelta as td
 import numpy as np
@@ -76,6 +85,27 @@ class Paths():
         '''
         self.logo_left_path = f"{os.environ['FIXevs']}/logos/noaa.png"
         self.logo_right_path = f"{os.environ['FIXevs']}/logos/nws.png"
+
+        '''
+        Define special paths to model data if the head directory (data_dir) 
+        and/or the file template (file_template) differ from the default
+        head directory and file template.
+
+        Leave the entire dictionary blank if there are no such model data.
+        If such model data exists, use the model name as the name of the
+        secondary dictionary, and use 'data_dir' and 'file_template' as keys
+        to this secondary dictionary.  The values of the keys are strings
+        representing the head directory and file template, respectively.
+        Leaving these strings blank ('') will tell the code to use the
+        default value instead.
+        '''
+        self.special_paths = {
+                'rrfs': {
+                    'data_dir': f"/lfs/h2/emc/vpppg/noscrub/marcel.caron/{os.environ['NET']}/{os.environ['evs_ver_2d']}/stats/{os.environ['COMPONENT']}",
+                    'file_template': '',
+                },
+        }
+
 
 class Presets():
     def __init__(self):
@@ -3874,3 +3904,14 @@ class Reference():
                 else:
                     in_vals = np.multiply(m_vals, 39.37)
                 return in_vals
+        def dec_to_perc(dec_vals, rounding=False, return_terms=False):
+            if return_terms:
+                M = 100.
+                C = 0.
+                return M, C
+            else:
+                if rounding:
+                    perc_vals = (np.multiply(dec_vals, 100.)).round()
+                else:
+                    perc_vals = np.multiply(dec_vals, 100.)
+                return perc_vals
