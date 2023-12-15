@@ -52,6 +52,10 @@ export PYTHONPATH=$HOMEevs/ush/$COMPONENT:$PYTHONPATH
 
 # Developer Settings
 export COMIN=/lfs/h2/emc/vpppg/noscrub/emc.vpppg/$NET/$evs_ver_2d
+#export COMIN=/lfs/h2/emc/vpppg/noscrub/marcel.caron/$NET/$evs_ver_2d
+export EVSINspcotlk=/lfs/h2/emc/vpppg/noscrub/emc.vpppg/$NET/$evs_ver_2d/prep/cam
+export EVSINrrfs=/lfs/h2/emc/vpppg/noscrub/marcel.caron/$NET/$evs_ver_2d/stats/cam
+
 export DATAROOT=/lfs/h2/emc/stmp/$USER/evs_test/$envir/tmp
 export COMOUT=/lfs/h2/emc/ptmp/${USER}/$NET/$evs_ver_2d/$STEP/$COMPONENT
 export vhr=${vhr:-${vhr}}

@@ -4,6 +4,7 @@
 #
 # NAME: exevs_mesoscale_headline_plots.sh
 # CONTRIBUTOR(S): Marcel Caron, marcel.caron@noaa.gov, NOAA/NWS/NCEP/EMC-VPPPGB
+# CONTRIBUTOR(S): Roshan Shrestha, roshan.shrestha@noaa.gov, NOAA/NWS/NCEP/EMC-VPPPGB
 # PURPOSE: Handle all components of an EVS Mesoscale Headline - Plots job
 # DEPENDENCIES: $HOMEevs/jobs/mesoscale/plots/JEVS_MESOSCALE_PLOTS 
 #
@@ -30,7 +31,6 @@ export err=$?; err_chk
 if [ $evs_run_mode = production ]; then
     python ${USHevs}/mesoscale/mesoscale_production_restart.py
     export err=$?; err_chk
-
 fi
 
 # Create Job Script 
@@ -43,7 +43,6 @@ export njob=$((njob+1))
 if [ $USE_CFP = YES ]; then
     python $USHevs/mesoscale/mesoscale_plots_headline_create_poe_job_scripts.py
     export err=$?; err_chk
-
 fi
 
 # Run All Mesoscale headline/plots Jobs
@@ -61,8 +60,6 @@ if [ $USE_CFP = YES ]; then
             nselect=$(cat $PBS_NODEFILE | wc -l)
 	    nnp=$(($nselect * $nproc))
 	    launcher="mpiexec -np ${nnp} -ppn ${nproc} --cpu-bind verbose,depth cfp"
-            # launcher="mpiexec -np $nproc -ppn $nproc --cpu-bind verbose,depth cfp"
-	    # ----
         elif [$machine = HERA -o $machine = ORION -o $machine = S4 -o $machine = JET ]; then
             export SLURM_KILL_BAD_EXIT=0
             launcher="srun --export=ALL --multi-prog"

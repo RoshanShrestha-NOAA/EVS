@@ -4,6 +4,7 @@
 # 
 # NAME: config.evs.prod.plots.mesoscale.atmos.headline
 # CONTRIBUTOR(S): Marcel Caron, marcel.caron@noaa.gov, NOAA/NWS/NCEP/EMC-VPPPGB
+# CONTRIBUTOR(S): Roshan Shrestha, roshan.shrestha@noaa.gov, NOAA/NWS/NCEP/EMC-VPPPGB
 # PURPOSE: Set up configurations to run EVS Mesoscale Headline - Plots
 # DEPENDENCIES: $HOMEevs/ecf/mesoscale/plots/jevs_mesoscale_headline_plots.ecf
 # 
