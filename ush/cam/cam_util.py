@@ -62,7 +62,7 @@ def get_data_type(fname):
         'NAM Nest Forecast': {
             'and':['nam', 'nest'],
             'or':[''],
-            'not':[],
+            'not':['firewx'],
             'type': 'fcst'
         },
         'HRRR Forecast': {
@@ -594,6 +594,6 @@ def copy_data_to_restart(data_dir, restart_dir, met_tool=None, net=None,
                       + f" {dest_path} because they already exist.")
             else:
                 run_shell_command(
-                    ['cpreq', '-rpv', origin_path, os.path.join(dest_path,'.')]
+                    ['cp', '-rpv', origin_path, os.path.join(dest_path,'.')]
                 )
 

@@ -1,4 +1,4 @@
-#!/bin/ksh
+#!/bin/bash
 #######################################################################
 ##  UNIX Script Documentation Block
 ##                      .
@@ -15,11 +15,16 @@
 ##   10/31/2023   Ho-Chun Huang  Update EVS model input directory
 ##                               structure from AQMv6 to AQMv7
 ##   11/14/2023   Ho-Chun Huang  Replace cp with cpreq
+##   01/05/2024   Ho-Chun Huang  modify for AQMv6 verification
+##   02/02/2024   Ho-Chun Huang  Replace cpreq with cp to copy file from DATA to COMOUT
 ##
 ##
 #######################################################################
 #
 set -x
+
+export config=$PARMevs/evs_config/$COMPONENT/config.evs.aqm.prod
+source $config
 
 #######################################################################
 # Define INPUT OBS DATA TYPE for ASCII2NC 
@@ -35,8 +40,8 @@ else
     export HOURLY_ASCII2NC_FORMAT=airnowhourly
 fi
  
-export dirname=aqm
-export gridspec=793
+export dirname=cs
+export gridspec=148
 
 export PREP_SAVE_DIR=${DATA}/prepsave
 mkdir -p ${PREP_SAVE_DIR}
@@ -62,7 +67,7 @@ while [ ${ic} -le ${endvhr} ]; do
 	    export err=$?; err_chk
 	    if [ ${SENDCOM} = "YES" ]; then
                 cpfile=${PREP_SAVE_DIR}/airnow_hourly_aqobs_${VDATE}${VHOUR}.nc 
-                if [ -e ${cpfile} ]; then cpreq ${cpfile} ${COMOUTproc}; fi
+                if [ -s ${cpfile} ]; then cp -v ${cpfile} ${COMOUTproc}; fi
 	    fi
         else
             echo "WARNING: can not find ${conf_dir}/Ascii2Nc_hourly_obsAIRNOW.conf"
@@ -91,7 +96,7 @@ if [ -s ${checkfile} ]; then
         export err=$?; err_chk
 	if [ ${SENDCOM} = "YES" ]; then
             cpfile=${PREP_SAVE_DIR}/airnow_daily_${VDATE}.nc
-            if [ -e ${cpfile} ]; then cpreq ${cpfile} ${COMOUTproc};fi
+            if [ -s ${cpfile} ]; then cp -v ${cpfile} ${COMOUTproc};fi
 	fi
     else
         echo "WARNING: can not find ${conf_dir}/Ascii2Nc_daily_obsAIRNOW.conf"
@@ -131,13 +136,15 @@ for hour in 06 12; do
         fi
 
         if [ $hour -eq 06 ]; then
-            ozmax8_file=${COMINaqm}/${dirname}.${VDATE}/${hour}/aqm.t${hour}z.max_8hr_o3${bctag}.${gridspec}.grib2
+            ozmax8_file=${COMINaqm}/${dirname}.${VDATE}/aqm.t${hour}z.max_8hr_o3${bctag}.${gridspec}.grib2
             if [ -s ${ozmax8_file} ]; then
                 wgrib2 -d 1 ${ozmax8_file} -set_ftime "6-29 hour ave fcst"  -grib out1.grb2
                 wgrib2 -d 2 ${ozmax8_file} -set_ftime "30-53 hour ave fcst" -grib out2.grb2
                 wgrib2 -d 3 ${ozmax8_file} -set_ftime "54-77 hour ave fcst" -grib out3.grb2
+		comout_file=aqm.t${hour}z.max_8hr_o3${bctag}.${gridspec}.grib2
+                cat out1.grb2 out2.grb2 out3.grb2 > ${comout_file}
         	if [ ${SENDCOM} = "YES" ]; then
-                    cat out1.grb2 out2.grb2 out3.grb2 > ${COMOUTproc}/aqm.t${hour}z.max_8hr_o3${bctag}.${gridspec}.grib2
+                    if [ -s ${comout_file} ]; then cp -v ${comout_file} ${COMOUTproc}; fi
         	fi
             else
                 if [ ${SENDMAIL} = "YES" ]; then
@@ -155,13 +162,15 @@ for hour in 06 12; do
         
         
         if [ $hour -eq 12 ]; then
-            ozmax8_file=${COMINaqm}/${dirname}.${VDATE}/${hour}/aqm.t${hour}z.max_8hr_o3${bctag}.${gridspec}.grib2
+            ozmax8_file=${COMINaqm}/${dirname}.${VDATE}/aqm.t${hour}z.max_8hr_o3${bctag}.${gridspec}.grib2
             if [ -s ${ozmax8_file} ]; then
                 wgrib2 -d 1 ${ozmax8_file} -set_ftime "0-23 hour ave fcst" -grib out1.grb2
                 wgrib2 -d 2 ${ozmax8_file} -set_ftime "24-47 hour ave fcst" -grib out2.grb2
                 wgrib2 -d 3 ${ozmax8_file} -set_ftime "48-71 hour ave fcst" -grib out3.grb2
+		comout_file=aqm.t${hour}z.max_8hr_o3${bctag}.${gridspec}.grib2
+                cat out1.grb2 out2.grb2 out3.grb2 > ${comout_file}
         	if [ ${SENDCOM} = "YES" ]; then
-                    cat out1.grb2 out2.grb2 out3.grb2 > ${COMOUTproc}/aqm.t${hour}z.max_8hr_o3${bctag}.${gridspec}.grib2
+                    if [ -s ${comout_file} ]; then cp -v ${comout_file} ${COMOUTproc}; fi
         	fi
             else
                 if [ ${SENDMAIL} = "YES" ]; then

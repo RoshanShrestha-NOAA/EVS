@@ -11,6 +11,9 @@ set -x
 
 # Set up initial directories and initialize variables
 
+export config=$PARMevs/evs_config/$COMPONENT/config.evs.rtma.prod
+source $config
+
 mkdir -p $DATA/plots/logs
 export LOGDIR=$DATA/plots/logs
 export STATDIR=$DATA/stats
@@ -203,7 +206,7 @@ for varb in GUST
 # Plots for wind gust
 
 do
- if [ $plot = yes ]; then
+ if [ $plot = yes -a $region != Guam ]; then
 	mkdir -p $COMOUTplots/$varb
 	export var=${varb}sfc
 	export lev=Z10

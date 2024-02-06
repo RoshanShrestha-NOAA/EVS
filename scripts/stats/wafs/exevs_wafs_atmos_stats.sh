@@ -8,11 +8,7 @@
 set -x
 
 cd $DATA
-if [ -s wafs_stat.cmdfile ];then
-	rm wafs_stat.cmdfile
-else
-	echo "WARNING: wafs_stat.cmdfile DOES NOT EXIST"
-fi
+rm -f wafs_stat.cmdfile
 
 export DATAsemifinal=$DATA/semifinal
 mkdir -p $DATAsemifinal

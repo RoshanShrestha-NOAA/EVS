@@ -2,6 +2,9 @@
 
 set -x
 
+export config=$HOMEevs/parm/evs_config/cam/config.evs.cam_nam_firewxnest.prod
+source $config
+
 export machine=${machine:-"WCOSS2"}
 mkdir -p $DATA/plots
 mkdir -p $DATA/logs
@@ -35,7 +38,8 @@ while [ $DATE -ge $ENDDATE ]; do
 	 sed "s/$model1/$MODELNAME/g" $STATDIR/evs.stats.${MODELNAME}.${RUN}.${VERIF_CASE}.v${DAY}.stat > $STATDIR/temp.stat
 	 sed "s/FULL/FireWx/g" $STATDIR/temp.stat > $STATDIR/temp2.stat
 	 sed "s/TDO/DPT/g" $STATDIR/temp2.stat > $STATDIR/temp3.stat
-	 mv $STATDIR/temp3.stat $STATDIR/evs.stats.${MODELNAME}.${RUN}.${VERIF_CASE}.v${DAY}.stat
+	 sed "s/MXGS/GUST/g" $STATDIR/temp3.stat > $STATDIR/temp4.stat
+	 mv $STATDIR/temp4.stat $STATDIR/evs.stats.${MODELNAME}.${RUN}.${VERIF_CASE}.v${DAY}.stat
 	 rm -f $STATDIR/temp*stat
 	fi
 
