@@ -96,7 +96,7 @@ i=1
          echo "File number $i found"
          nfiles=$((nfiles+1))
       else
-         echo "$fcst_file is missing"
+         echo "WARNING: $fcst_file is missing"
       fi
    
       fhr=$((fhr+1))
@@ -134,9 +134,10 @@ i=1
 
    else
 
+      echo "WARNING: Only $nfiles ${MODELNAME} forecast files found for ${vhr}Z ${IDATE} cycle. $min_file_req files are required."
       if [ $SENDMAIL = YES ]; then
          export subject="${MODELNAME} Forecast Data Missing for EVS ${COMPONENT}"
-         echo "Warning: Only $nfiles ${MODELNAME} forecast files found for ${vhr}Z ${IDATE} cycle. $min_file_req files are required. METplus will not run." > mailmsg
+         echo "WARNING: Only $nfiles ${MODELNAME} forecast files found for ${vhr}Z ${IDATE} cycle. $min_file_req files are required. METplus will not run." > mailmsg
          echo "Job ID: $jobid" >> mailmsg
          cat mailmsg | mail -s "$subject" $MAILTO
       fi
