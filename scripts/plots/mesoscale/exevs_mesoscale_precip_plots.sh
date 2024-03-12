@@ -5,8 +5,8 @@
 # NAME: exevs_mesoscale_precip_plots.sh
 # CONTRIBUTOR(S): Marcel Caron, marcel.caron@noaa.gov, NOAA/NWS/NCEP/EMC-VPPPGB
 #                 Roshan Shrestha, roshan.shrestha@noaa.gov, NOAA/NWS/NCEP/EMC-VPPPGB
-# PURPOSE: Handle all components of an EVS Mesoscale Precipitation - Plots job
-# DEPENDENCIES: $HOMEevs/jobs/mesoscale/plots/JEVS_MESOSCALE_PLOTS 
+# PURPOSE: Handle all components of an EVS Mesoscale Precipitation - Plots job RRFS
+# DEPENDENCIES: $HOMEevs/jobs/JEVS_MESOSCALE_PLOTS 
 #
 # =============================================================================
 
@@ -44,7 +44,6 @@ export njob=$((njob+1))
 if [ $USE_CFP = YES ]; then
     python $USHevs/mesoscale/mesoscale_plots_precip_create_poe_job_scripts.py
     export err=$?; err_chk
-
 fi
 
 # Run All Mesoscale precip/plots Jobs
@@ -62,8 +61,6 @@ if [ $USE_CFP = YES ]; then
 	    nselect=$(cat $PBS_NODEFILE | wc -l)
     	    nnp=$(($nselect * $nproc))
        	    launcher="mpiexec -np ${nnp} -ppn ${nproc} --cpu-bind verbose,depth cfp"
-            # launcher="mpiexec -np $nproc -ppn $nproc --cpu-bind verbose,depth cfp"
-	    # ---
         elif [$machine = HERA -o $machine = ORION -o $machine = S4 -o $machine = JET ]; then
             export SLURM_KILL_BAD_EXIT=0
             launcher="srun --export=ALL --multi-prog"
@@ -78,6 +75,22 @@ else
         ${DATA}/${VERIF_CASE}/${STEP}/plotting_job_scripts/job${nc}
         nc=$((nc+1))
     done
+fi
+
+# Cat the plotting log files
+log_dir="$DATA/$VERIF_CASE/out/logs"
+if [ -d $log_dir ]; then
+    log_file_count=$(find $log_dir -type f | wc -l)
+    if [[ $log_file_count -ne 0 ]]; then
+        log_files=("$log_dir"/*)
+        for log_file in "${log_files[@]}"; do
+            if [ -f "$log_file" ]; then
+                echo "Start: $log_file"
+                cat "$log_file"
+                echo "End: $log_file"
+            fi
+        done
+    fi
 fi
 
 # Tar and Copy output files to EVS COMOUT directory
