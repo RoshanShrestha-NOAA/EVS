@@ -3,7 +3,8 @@
 #
 # NAME: mesoscale_get_data_files.py
 # CONTRIBUTOR(S): Marcel Caron, marcel.caron@noaa.gov, NOAA/NWS/NCEP/EMC-VPPPGB
-# PURPOSE: 
+# CONTRIBUTOR(S): Roshan Shrestha, roshan.shrestha@noaa.gov, NOAA/NWS/NCEP/EMC-VPPPGB
+# PURPOSE: RRFS
 # DEPENDENCIES: os.path.join([
 #                   SCRIPTSevs,COMPONENT,STEP,
 #                   "_".join(["exevs",MODELNAME,VERIF_CASE,STEP+".sh"]
@@ -98,6 +99,12 @@ if VERIF_CASE == 'precip':
             sys.exit(1)
                  
 
+if STEP == 'plots':
+    COMINobs = os.environ['COMINobs']
+    VHOUR = os.environ['VHOUR']
+    FHR_START = os.environ['FHR_START']
+    FHR_END = os.environ['FHR_END']
+    FHR_INCR = os.environ['FHR_INCR']
 
 
 

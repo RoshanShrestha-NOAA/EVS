@@ -364,7 +364,7 @@ graphics = {
                         }
                     }
                 },  
-                'nam, rap?shift=-3': {
+                'nam, rap?shift=-3, rrfs': {
                     'stat_by_level':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',
@@ -457,7 +457,7 @@ graphics = {
                 }
             },
             'metar':{
-                'lead_average_group, nam, rap?shift=-3, gfs': {
+                'lead_average_group, nam, rap?shift=-3, gfs, rrfs': {
                     'lead_average':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',
@@ -584,7 +584,7 @@ graphics = {
                         }
                     },
                 },
-                'nam, rap?shift=-3, gfs': {
+                'nam, rap?shift=-3, gfs, rrfs': {
                     'valid_hour_average':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',
