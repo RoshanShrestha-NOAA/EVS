@@ -364,7 +364,7 @@ graphics = {
                         }
                     }
                 },  
-                'nam, rap?shift=-3, rrfs': {
+                'nam, rap?shift=-3': {
                     'stat_by_level':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',
