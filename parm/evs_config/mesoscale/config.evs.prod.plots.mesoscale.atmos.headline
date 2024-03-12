@@ -5,7 +5,7 @@
 # NAME: config.evs.prod.plots.mesoscale.atmos.headline
 # CONTRIBUTOR(S): Marcel Caron, marcel.caron@noaa.gov, NOAA/NWS/NCEP/EMC-VPPPGB
 # CONTRIBUTOR(S): Roshan Shrestha, roshan.shrestha@noaa.gov, NOAA/NWS/NCEP/EMC-VPPPGB
-# PURPOSE: Set up configurations to run EVS Mesoscale Headline - Plots_RRFS
+# PURPOSE: Set up configurations to run EVS Mesoscale Headline - Plots
 # DEPENDENCIES: $HOMEevs/ecf/mesoscale/plots/jevs_mesoscale_headline_plots.ecf
 # 
 # =============================================================================
@@ -21,14 +21,12 @@ export MET_VERSION="${MET_VERSION%.}"
 export SAVE_DIR="${DATA}/${VERIF_CASE}/out"
 export RESTART_DIR="${COMOUTplots}/${VERIF_CASE}/restart"
 export COMPLETED_JOBS_FILE="completed_jobs.txt"
-export LOG_TEMPLATE="${SAVE_DIR}/logs/EVS_verif_plotting_job{njob}_headline$($NDATE)_$$.out"
+export LOG_TEMPLATE="${SAVE_DIR}/logs/EVS_verif_plotting_job{njob}_headline_$$.out"
 export LOG_LEVEL="DEBUG"
 
 # Model/Obs Settings
-# export STAT_OUTPUT_BASE_DIR="${EVSIN}/cam"
 export STAT_OUTPUT_BASE_DIR="${EVSIN}"
-export STAT_OUTPUT_BASE_TEMPLATE="*/{MODEL}.{valid?fmt=%Y%m%d}/${NET}.stats.{MODEL}.${RUN}.${VERIF_CASE}.v{valid?fmt=%Y%m%d}.stat"
-# export STAT_OUTPUT_BASE_TEMPLATE="*/{MODEL}.{valid?fmt=%Y%m%d}/${NET}.stats.{MODEL}*grid2obs*v{valid?fmt=%Y%m%d}.stat"
+export STAT_OUTPUT_BASE_TEMPLATE="*/{MODEL}.{valid?fmt=%Y%m%d}/${NET}.stats.{MODEL}*grid2obs*v{valid?fmt=%Y%m%d}.stat"
 
 # Additional Verification Settings
 export IMG_HEADER="${NET}.${COMPONENT}"

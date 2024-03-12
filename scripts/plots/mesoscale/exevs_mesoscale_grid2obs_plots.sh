@@ -5,8 +5,8 @@
 # NAME: exevs_mesoscale_grid2obs_plots.sh
 # CONTRIBUTOR(S): Marcel Caron, marcel.caron@noaa.gov, NOAA/NWS/NCEP/EMC-VPPPGB
 #                 Roshan Shrestha, roshan.shrestha@noaa.gov, NOAA/NWS/NCEP/EMC-VPPPGB
-# PURPOSE: Handle all components of an EVS Mesoscale Grid2Obs - Plots job_RRFS
-# DEPENDENCIES: $HOMEevs/jobs/JEVS_MESOSCALE_PLOTS 
+# PURPOSE: Handle all components of an EVS Mesoscale Grid2Obs - Plots job
+# DEPENDENCIES: $HOMEevs/jobs/mesoscale/plots/JEVS_MESOSCALE_PLOTS 
 #
 # =============================================================================
 
@@ -62,6 +62,8 @@ if [ $USE_CFP = YES ]; then
             nselect=$(cat $PBS_NODEFILE | wc -l)
 	    nnp=$(($nselect * $nproc))
 	    launcher="mpiexec -np ${nnp} -ppn ${nproc} --cpu-bind verbose,depth cfp"
+            # launcher="mpiexec -np $nproc -ppn $nproc --cpu-bind verbose,depth cfp"
+	    # ----
         elif [$machine = HERA -o $machine = ORION -o $machine = S4 -o $machine = JET ]; then
             export SLURM_KILL_BAD_EXIT=0
             launcher="srun --export=ALL --multi-prog"
@@ -77,22 +79,6 @@ else
         nc=$((nc+1))
     done
 fi
-
-# Cat the plotting log files
-log_dir="$DATA/$VERIF_CASE/out/logs"
-  if [ -d $log_dir ]; then
-      log_file_count=$(find $log_dir -type f | wc -l)
-      if [[ $log_file_count -ne 0 ]]; then
-          log_files=("$log_dir"/*)
-          for log_file in "${log_files[@]}"; do
-              if [ -f "$log_file" ]; then
-                  echo "Start: $log_file"
-                  cat "$log_file"
-                  echo "End: $log_file"
-              fi
-          done
-      fi
-  fi
 
 # Tar and Copy output files to EVS COMOUT directory
   find ${DATA}/${VERIF_CASE}/* -name "*.png" -type f -print | tar -cvf ${DATA}/${NET}.${STEP}.${COMPONENT}.${RUN}.${VERIF_CASE}.v${VDATE}.tar --transform='s#.*/##'  -T -
