@@ -101,6 +101,7 @@ export EVSINapcp24mean=${EVSINapcp24mean:-$COMIN/stats/$COMPONENT}
 export EVSINccpa=${EVSINccpa:-$COMIN/prep/cam/$RUN}
 export EVSINmrms=${EVSINmrms:-$COMIN/prep/cam/$RUN}
 export EVSINspcotlk=${EVSINspcotlk:-$COMIN/prep/cam/$RUN}
+export EVSINrrfs=${EVSINrrfs:-$COMIN/stats/cam/$RUN}
 export COMOUT=${COMOUT:-$(compath.py -o $NET/$evs_ver/$STEP/$COMPONENT)}
 if [ $VERIF_CASE = headline ] ; then
   export COMOUTplots=${COMOUTplots:-$COMOUT/headline.$VDATE}

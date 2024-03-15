@@ -24,7 +24,7 @@ class Toggle():
             'display_averages': False, # display mean statistic for each model, averaged across the dimension of the independent variable
             'sample_equalization': False, # equalize samples along each value of the independent variable where data exist
             'keep_shared_events_only': False, # functional for time_series only.
-            'clear_prune_directory': True, # remove the intermediate directory created to store pruned data files temporarily
+            'clear_prune_directory': True, #False, # True, # remove the intermediate directory created to store pruned data files temporarily
             'delete_intermed_data': os.environ['DELETE_INTERMED_TOGGLE'], # if True, delete rows of data if, for any model, rows include NaN (lead_average only)
             'plot_logo_left': True,
             'plot_logo_right': True,
@@ -77,9 +77,29 @@ class Paths():
         self.logo_left_path = f"{os.environ['FIXevs']}/logos/noaa.png"
         self.logo_right_path = f"{os.environ['FIXevs']}/logos/nws.png"
 
+
+        '''
+        Define special path
+        .
+        .
+
+
+
+        default value instead.
+        '''
+        self.special_paths = {
+                'rrfs': {
+                    'data_dir': f"/lfs/h2/emc/vpppg/noscrub/marcel.caron/{os.environ['NET']}/{os.environ['evs_ver_2d']}/stats/cam",
+                    'file_template': "{MODEL}.{valid?fmt=%Y%m%d}/"+f"{os.environ['NET']}"+".stats.{MODEL}*grid2obs*v{valid?fmt=%Y%m%d}.stat",
+                },
+        }
+                    # 'file_template': '',
+                    # 'file_template': "rrfs.{valid?fmt=%Y%m%d}/evs.stats.rrfs*grid2obs*v{valid?fmt=%Y%m%d}.stat",
+
+
 class Presets():
     def __init__(self):
-      
+
         self.level_presets = {
             'all': 'P1000,P925,P850,P700,P500,P400,P300,P200,P150,P100,P50',
             'ltrop': 'P1000,P950,P900,P850,P800,P750,P700,P650,P600,P550,P500',
@@ -222,378 +242,477 @@ class ModelSpecs():
         self.model_alias = {
             'ARW': {
                 'settings_key':'HRW_ARW', 
+                'stats_key':'', 
                 'plot_name':'HiResW ARW'
             },
             'ARW2': {
                 'settings_key':'HRW_ARW2', 
+                'stats_key':'', 
                 'plot_name':'HiResW ARW2'
             },
             'FV3': {
                 'settings_key':'HRW_FV3', 
+                'stats_key':'', 
                 'plot_name':'HiResW FV3'
             },
             'NMMB': {
                 'settings_key':'HRW_NMMB', 
+                'stats_key':'', 
                 'plot_name':'HiResW NMMB'
             },
             'AKARW': {
                 'settings_key':'HRW_ARW', 
+                'stats_key':'', 
                 'plot_name':'HiResW ARW'
             },
             'AKARW2': {
                 'settings_key':'HRW_ARW2', 
+                'stats_key':'', 
                 'plot_name':'HiResW ARW2'
             },
             'AKFV3': {
                 'settings_key':'HRW_FV3', 
+                'stats_key':'', 
                 'plot_name':'HiResW FV3'
             },
             'AKNEST': {
                 'settings_key':'NAM_NEST', 
+                'stats_key':'', 
                 'plot_name':'NAM Nest'
             },
             'AKNMMB': {
                 'settings_key':'HRW_NMMB', 
+                'stats_key':'', 
                 'plot_name':'HiResW NMMB'
             },
             'CONUSARW': {
                 'settings_key':'HRW_ARW', 
+                'stats_key':'', 
                 'plot_name':'HiResW ARW'
             },
             'CONUSARW2': {
                 'settings_key':'HRW_ARW2', 
+                'stats_key':'', 
                 'plot_name':'HiResW ARW2'
             },
             'CONUSFV3': {
                 'settings_key':'HRW_FV3', 
+                'stats_key':'', 
                 'plot_name':'HiResW FV3'
             },
             'CONUSNEST': {
                 'settings_key':'NAM_NEST', 
+                'stats_key':'', 
                 'plot_name':'NAM Nest'
             },
             'CONUSNMMB': {
                 'settings_key':'HRW_NMMB', 
+                'stats_key':'', 
                 'plot_name':'HiResW NMMB'
             },
             'hireswarw': {
                 'settings_key':'HRW_ARW', 
+                'stats_key':'', 
                 'plot_name':'HiResW ARW'
             },
             'hireswarwmem2': {
                 'settings_key':'HRW_ARW2', 
+                'stats_key':'', 
                 'plot_name':'HiResW ARW2'
             },
             'hireswfv3': {
                 'settings_key':'HRW_FV3', 
+                'stats_key':'', 
                 'plot_name':'HiResW FV3'
             },
             'HREF_MEAN':{
                 'settings_key':'HREF_MEAN', 
+                'stats_key':'', 
                 'plot_name':'HREF Mean'
             },
             'HREF_AVRG':{
                 'settings_key':'HREF_AVRG', 
+                'stats_key':'', 
                 'plot_name':'HREF Average of MEAN and PMMN'
             },
             'HREF_LPMM':{
                 'settings_key':'HREF_LPMM', 
+                'stats_key':'', 
                 'plot_name':'HREF Local Probability-Matched Mean'
             },
             'HREF_PMMN':{
                 'settings_key':'HREF_PMMN', 
+                'stats_key':'', 
                 'plot_name':'HREF Probability-Matched Mean'
             },
             'HREF_PROB':{
                 'settings_key':'HREF_PROB', 
+                'stats_key':'', 
                 'plot_name':'HREF Probability'
             },
             'HREFX_MEAN':{
                 'settings_key':'HREFX_MEAN', 
+                'stats_key':'', 
                 'plot_name':'HREF-X Mean'
             },
             'CONUSHREF_MEAN':{
                 'settings_key':'HREF_MEAN', 
+                'stats_key':'', 
                 'plot_name':'HREF Mean'
             },
             'CONUSHREF_AVRG':{
                 'settings_key':'HREF_AVRG', 
+                'stats_key':'', 
                 'plot_name':'HREF Average of MEAN and PMMN'
             },
             'CONUSHREF_LPMM':{
                 'settings_key':'HREF_LPMM', 
+                'stats_key':'', 
                 'plot_name':'HREF Local Probability-Matched Mean'
             },
             'CONUSHREF_PMMN':{
                 'settings_key':'HREF_PMMN', 
+                'stats_key':'', 
                 'plot_name':'HREF Probability-Matched Mean'
             },
             'CONUSHREF_PROB':{
                 'settings_key':'HREF_PROB', 
+                'stats_key':'', 
                 'plot_name':'HREF Probability'
             },
             'CONUSHREFX_MEAN':{
                 'settings_key':'HREFX_MEAN', 
+                'stats_key':'', 
                 'plot_name':'HREF-X Mean'
             },
             'AKHREF_MEAN':{
                 'settings_key':'HREF_MEAN', 
+                'stats_key':'', 
                 'plot_name':'HREF Mean'
             },
             'AKHREF_AVRG':{
                 'settings_key':'HREF_AVRG', 
+                'stats_key':'', 
                 'plot_name':'HREF Average of MEAN and PMMN'
             },
             'AKHREF_LPMM':{
                 'settings_key':'HREF_LPMM', 
+                'stats_key':'', 
                 'plot_name':'HREF Local Probability-Matched Mean'
             },
             'AKHREF_PMMN':{
                 'settings_key':'HREF_PMMN', 
+                'stats_key':'', 
                 'plot_name':'HREF Probability-Matched Mean'
             },
             'AKHREF_PROB':{
                 'settings_key':'HREF_PROB', 
+                'stats_key':'', 
                 'plot_name':'HREF Probability'
             },
             'AKHREFX_MEAN':{
                 'settings_key':'HREFX_MEAN', 
+                'stats_key':'', 
                 'plot_name':'HREF-X Mean'
             },
             'PRHREF_MEAN':{
                 'settings_key':'HREF_MEAN', 
+                'stats_key':'', 
                 'plot_name':'HREF Mean'
             },
             'PRHREF_AVRG':{
                 'settings_key':'HREF_AVRG', 
+                'stats_key':'', 
                 'plot_name':'HREF Average of MEAN and PMMN'
             },
             'PRHREF_LPMM':{
                 'settings_key':'HREF_LPMM', 
+                'stats_key':'', 
                 'plot_name':'HREF Local Probability-Matched Mean'
             },
             'PRHREF_PMMN':{
                 'settings_key':'HREF_PMMN', 
+                'stats_key':'', 
                 'plot_name':'HREF Probability-Matched Mean'
             },
             'PRHREF_PROB':{
                 'settings_key':'HREF_PROB', 
+                'stats_key':'', 
                 'plot_name':'HREF Probability'
             },
             'PRHREFX_MEAN':{
                 'settings_key':'HREFX_MEAN', 
+                'stats_key':'', 
                 'plot_name':'HREF-X Mean'
             },
             'HIHREF_MEAN':{
                 'settings_key':'HREF_MEAN', 
+                'stats_key':'', 
                 'plot_name':'HREF Mean'
             },
             'HIHREF_AVRG':{
                 'settings_key':'HREF_AVRG', 
+                'stats_key':'', 
                 'plot_name':'HREF Average of MEAN and PMMN'
             },
             'HIHREF_LPMM':{
                 'settings_key':'HREF_LPMM', 
+                'stats_key':'', 
                 'plot_name':'HREF Local Probability-Matched Mean'
             },
             'HIHREF_PMMN':{
                 'settings_key':'HREF_PMMN', 
+                'stats_key':'', 
                 'plot_name':'HREF Probability-Matched Mean'
             },
             'HIHREF_PROB':{
                 'settings_key':'HREF_PROB', 
+                'stats_key':'', 
                 'plot_name':'HREF Probability'
             },
             'HIHREFX_MEAN':{
                 'settings_key':'HREFX_MEAN', 
+                'stats_key':'', 
                 'plot_name':'HREF-X Mean'
             },
             'NARRE_MEAN':{
                 'settings_key':'NARRE_MEAN', 
+                'stats_key':'', 
                 'plot_name':'NARRE Mean'
             },
             'HIARW': {
                 'settings_key':'HRW_ARW', 
+                'stats_key':'', 
                 'plot_name':'HiResW ARW'
             },
             'HIARW2': {
                 'settings_key':'HRW_ARW2', 
+                'stats_key':'', 
                 'plot_name':'HiResW ARW2'
             },
             'HIFV3': {
                 'settings_key':'HRW_FV3', 
+                'stats_key':'', 
                 'plot_name':'HiResW FV3'
             },
             'HINMMB': {
                 'settings_key':'HRW_NMMB', 
+                'stats_key':'', 
                 'plot_name':'HiResW NMMB'
             },
             'HAWAIINEST': {
                 'settings_key':'NAM_NEST', 
+                'stats_key':'', 
                 'plot_name':'NAM Nest'
             },
             'PRARW': {
                 'settings_key':'HRW_ARW', 
+                'stats_key':'', 
                 'plot_name':'HiResW ARW'
             },
             'PRARW2': {
                 'settings_key':'HRW_ARW2', 
+                'stats_key':'', 
                 'plot_name':'HiResW ARW2'
             },
             'PRFV3': {
                 'settings_key':'HRW_FV3', 
+                'stats_key':'', 
                 'plot_name':'HiResW FV3'
             },
             'PRNMMB': {
                 'settings_key':'HRW_NMMB', 
+                'stats_key':'', 
                 'plot_name':'HiResW NMMB'
             },
             'PRICONEST': {
                 'settings_key':'NAM_NEST', 
+                'stats_key':'', 
                 'plot_name':'NAM Nest'
             },
             'FV3LAMDA': {
                 'settings_key':'LAMDA', 
+                'stats_key':'', 
                 'plot_name':'FV3LAM-DA'
             },
             'FV3LAMDAX': {
                 'settings_key':'LAMDAX', 
+                'stats_key':'', 
                 'plot_name':'FV3LAM-DAX'
             },
             'FV3LAMDAXAK': {
                 'settings_key':'LAMDAX', 
+                'stats_key':'', 
                 'plot_name':'FV3LAM-DAX'
             },
             'FV3LAMDAXHI': {
                 'settings_key':'LAMDAX', 
+                'stats_key':'', 
                 'plot_name':'FV3LAM-DAX'
             },
             'FV3LAMDAXNA': {
                 'settings_key':'LAMDAX', 
+                'stats_key':'', 
                 'plot_name':'FV3LAM-DAX'
             },
             'FV3LAMDAXPR': {
                 'settings_key':'LAMDAX', 
+                'stats_key':'', 
                 'plot_name':'FV3LAM-DAX'
             },
             'FV3LAM': {
                 'settings_key':'LAM', 
+                'stats_key':'', 
                 'plot_name':'FV3LAM'
             },
             'FV3LAMAK': {
                 'settings_key':'LAM', 
+                'stats_key':'', 
                 'plot_name':'FV3LAM'
             },
             'FV3LAMHI': {
                 'settings_key':'LAM', 
+                'stats_key':'', 
                 'plot_name':'FV3LAM'
             },
             'FV3LAMNA': {
                 'settings_key':'LAM', 
+                'stats_key':'', 
                 'plot_name':'FV3LAM'
             },
             'FV3LAMPR': {
                 'settings_key':'LAM', 
+                'stats_key':'', 
                 'plot_name':'FV3LAM'
             },
             'FV3LAMX': {
                 'settings_key':'LAMX', 
+                'stats_key':'', 
                 'plot_name':'FV3LAM-X'
             },
             'FV3LAMXAK': {
                 'settings_key':'LAMX', 
+                'stats_key':'', 
                 'plot_name':'FV3LAM-X'
             },
             'FV3LAMXHI': {
                 'settings_key':'LAMX', 
+                'stats_key':'', 
                 'plot_name':'FV3LAM-X'
             },
             'FV3LAMXNA': {
                 'settings_key':'LAMX', 
+                'stats_key':'', 
                 'plot_name':'FV3LAM-X'
             },
             'FV3LAMXPR': {
                 'settings_key':'LAMX', 
+                'stats_key':'', 
                 'plot_name':'FV3LAM-X'
             },
             'gfs': {
                 'settings_key':'GFS', 
+                'stats_key':'', 
                 'plot_name':'GFS'
             },
             'NAM_NEST': {
                 'settings_key':'NAM_NEST', 
+                'stats_key':'', 
                 'plot_name':'NAM Nest'
             },
             'NAM_FIREWXNEST': {
                 'settings_key':'NAM_NEST', 
+                'stats_key':'', 
                 'plot_name':'NAM Fire Wx Nest'
             },
             'namnest': {
                 'settings_key':'NAM_NEST', 
+                'stats_key':'', 
                 'plot_name':'NAM Nest'
             },
             'nam': {
                 'settings_key':'NAM', 
+                'stats_key':'', 
                 'plot_name':'NAM'
             },
             'HRRRAK': {
                 'settings_key':'HRRR', 
+                'stats_key':'', 
                 'plot_name':'HRRR'
             },
             'hrrr': {
                 'settings_key':'HRRR', 
+                'stats_key':'', 
                 'plot_name':'HRRR'
             },
             'NAMNA': {
                 'settings_key':'NAM', 
+                'stats_key':'', 
                 'plot_name':'NAM'
             },
             'RAPAK': {
                 'settings_key':'RAP', 
+                'stats_key':'', 
                 'plot_name':'RAP'
             },
             'RAPNA': {
                 'settings_key':'RAP', 
+                'stats_key':'', 
                 'plot_name':'RAP'
             },
             'rap': {
                 'settings_key':'RAP', 
+                'stats_key':'', 
                 'plot_name':'RAP'
             },
             'RRFS_A': {
                 'settings_key':'RRFS_A', 
+                'stats_key':'', 
                 'plot_name':'RRFS-A'
+            },
+            'rrfs': {
+                'settings_key':'RRFS', 
+                'stats_key':'', 
+                'plot_name':'RRFS'
             },
             'RRFS_A_AK': {
                 'settings_key':'RRFS_A', 
+                'stats_key':'', 
                 'plot_name':'RRFS-A Alaska'
             },
             'RRFS_A_PR': {
                 'settings_key':'RRFS_A', 
+                'stats_key':'', 
                 'plot_name':'RRFS-A Puerto Rico'
             },
             'RRFS_A_HI': {
                 'settings_key':'RRFS_A', 
+                'stats_key':'', 
                 'plot_name':'RRFS-A Hawaii'
             },
             'RRFS_A_CONUS': {
                 'settings_key':'RRFS_A', 
+                'stats_key':'', 
                 'plot_name':'RRFS-A CONUS'
             },
             'RRFS_A_NACONUS': {
                 'settings_key':'RRFS_A_NA', 
+                'stats_key':'', 
                 'plot_name':'RRFS-A N. America'
             },
             'mrms': {
                 'settings_key':'MRMS', 
+                'stats_key':'', 
                 'plot_name':'MRMS'
             },
             'ccpa': {
                 'settings_key':'CCPA', 
+                'stats_key':'', 
                 'plot_name':'CCPA'
             },
             'wafs': {
                 'settings_key':'WAFS', 
+                'stats_key':'', 
                 'plot_name':'WAFS'
             }
         }
@@ -697,6 +816,9 @@ class ModelSpecs():
             'NAM_NEST': {'color': '#1e3cff',
                      'marker': 'o', 'markersize': 10,
                      'linestyle': 'solid', 'linewidth': 1.8},
+            'RRFS': {'color': '#696969',
+                     'marker': 'o', 'markersize': 10,
+                     'linestyle': 'solid', 'linewidth': 1.8},
             'RRFS_A': {'color': '#00dc00',
                       'marker': 'o', 'markersize': 10,
                       'linestyle': 'solid', 'linewidth': 1.8},
@@ -792,6 +914,10 @@ class Reference():
             'm_snow': {
                 'convert_to': 'in',
                 'formula': self.formulas.m_snow_to_in
+            },
+            'decimal': {
+                'convert_to': '%',
+                'formula': self.formulas.dec_to_perc
             },
         }
 
@@ -3855,3 +3981,15 @@ class Reference():
                 else:
                     in_vals = np.multiply(m_vals, 39.37)
                 return in_vals
+        def dec_to_perc(dec_vals, rounding=False, return_terms=False):
+            if return_terms:
+                M = 100.
+                C = 0.
+                return M, C
+            else:
+                if rounding:
+                    perc_vals = (np.multiply(dec_vals, 100.)).round()
+                else:
+                    perc_vals = np.multiply(dec_vals, 100.)
+                return perc_vals
+

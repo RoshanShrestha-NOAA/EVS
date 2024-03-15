@@ -2,9 +2,10 @@
 ###############################################################################
 #
 # Name:          df_preprocessing.py
-# Contact(s):    Marcel Caron
+# Contact(s):    Marcel Caron, Roshan Shrestha
 # Developed:     Dec. 2, 2021 by Marcel Caron
 # Last Modified: Jun. 7, 2023 by Marcel Caron
+# Last Modified: Mar. 7, 2024 by Roshan Shrestha
 # Abstract:      Collection of functions that initialize and filter dataframes
 #
 ###############################################################################
@@ -20,14 +21,16 @@ from datetime import datetime, timedelta as td
 SETTINGS_DIR = os.environ['USH_DIR']
 sys.path.insert(0, os.path.abspath(SETTINGS_DIR))
 from prune_stat_files import prune_data
+from settings import ModelSpecs
 import plot_util
 
+model_colors = ModelSpecs()
 
 # =================== FUNCTIONS =========================
 
 def get_valid_range(logger, date_type, date_range, date_hours, fleads):
     if None in date_hours:
-        e = (f"One or more FCST_{date_type}_HOURS is Nonetype. This may be"
+        e = (f"FATAL ERROR: One or more FCST_{date_type}_HOURS is Nonetype. This may be"
              + f" because the input string is empty.")
         logger.error(e)
         raise ValueError(e)
@@ -45,15 +48,15 @@ def get_valid_range(logger, date_type, date_range, date_hours, fleads):
     elif date_type == 'VALID':
         valid_range = date_range
     else:
-        e = (f"Invalid DATE_TYPE: {str(date_type).upper()}. Valid values are"
+        e = (f"FATAL ERROR: Invalid DATE_TYPE: {str(date_type).upper()}. Valid values are"
              + f" VALID or INIT")
         logger.error(e)
         raise ValueError(e)
     return valid_range
 
-def run_prune_data(logger, stats_dir, prune_dir, output_base_template, 
-                   verif_case, verif_type, line_type, valid_range, eval_period, 
-                   var_name, fcst_var_names, model_list, domain, fcst_lev):
+def run_prune_data(logger, stats_dir, prune_dir, output_base_template, verif_case, 
+                   verif_type, line_type, valid_range, eval_period, var_name, 
+                   fcst_var_names, model_list, domain, fcst_lev):
     model_list = [str(model) for model in model_list]
     tmp_dir = 'tmp'+str(uuid.uuid4().hex)
     pruned_data_dir = os.path.join(
@@ -79,21 +82,22 @@ def run_prune_data(logger, stats_dir, prune_dir, output_base_template,
                 logger.error(e)
                 raise TypeError(e)
             prune_data(
-                stats_dir, prune_dir, tmp_dir, output_base_template, 
-                valid_range, str(eval_period).upper(), str(verif_case).lower(), 
-                str(verif_type).lower(), str(line_type).upper(), str(domain), 
+                stats_dir, prune_dir, tmp_dir, output_base_template, valid_range, 
+                str(eval_period).upper(), str(verif_case).lower(), 
+                str(verif_type).lower(), str(line_type).upper(), 
+                str(domain), 
                 [' '+str(fcst_var_name)+' ' for fcst_var_name in fcst_var_names],
                 str(var_name).upper(), model_list, 
                 [' '+str(lev)+' ' for lev in fcst_lev]
             )
         else:
-            e1 = f"{stats_dir} exists but is empty."
+            e1 = f"FATAL ERROR: {stats_dir} exists but is empty."
             e2 = f"Populate {stats_dir} and retry."
             logger.error(e1)
             logger.error(e2)
             raise OSError(e1+"\n"+e2)
     else:
-        e1 = f"{stats_dir} does not exist."
+        e1 = f"FATAL ERROR: {stats_dir} does not exist."
         e2 = f"Create and populate {stats_dir} and retry."
         logger.error(e1)
         logger.error(e2)
@@ -112,7 +116,7 @@ def check_empty(df, logger, called_from):
 
 def create_df(logger, stats_dir, pruned_data_dir, line_type, date_range, 
               model_list, met_version, clear_prune_dir, verif_type, 
-              fcst_var_names, obs_var_names, interp, domain, date_type,
+              fcst_var_names, obs_var_names, interp, domain, date_type, 
               date_hours, model_queries):
     model_list = [str(model) for model in model_list]
     # Create df combining pruned stats for all models in model_list
@@ -121,24 +125,26 @@ def create_df(logger, stats_dir, pruned_data_dir, line_type, date_range,
     for model in model_list:
         fpath = os.path.join(pruned_data_dir,f'{str(model)}.stat')
         if not os.path.isfile(fpath):
-            logger.warning(
-                f"The stat file for {str(model)} is not a model in"
-                + f" {pruned_data_dir}."
-            )
-            logger.warning(
-                f"It may be a group name, or else check if the stats_dir ({stats_dir}) includes"
-                + f" {str(model)} data according to the output_base template,"
-                + f" given domain, variable, etc..."
-            )
-            logger.warning("Continuing ...")
+            if not any(
+                    group_name in str(model) for group_name in ["group", "set"]
+                ):
+                logger.warning(
+                    f"The stat file for {str(model)} is not a model in"
+                    + f" {pruned_data_dir}."
+                )
+                logger.warning(
+                    f"It may be a group name, or else check if the stats_dir ({stats_dir}) includes"
+                    + f" {str(model)} data according to the output_base template,"
+                    + f" given domain, variable, etc..."
+                )
+                logger.warning("Continuing ...")
             continue
         if not clear_prune_dir:
             logger.debug(f"Creating dataframe using pruned data from {fpath}")
         try:
             df_colnames = plot_util.get_stat_file_base_columns(met_version)
             df_line_type_colnames = plot_util.get_stat_file_line_type_columns(
-                logger, met_version, str(line_type).upper(), df_colnames, 
-                fpath
+                logger, met_version, str(line_type).upper(), df_colnames, fpath
             )
             df_colnames = np.concatenate((
                 df_colnames, df_line_type_colnames
@@ -347,6 +353,20 @@ def filter_by_hour(df, logger, date_type, date_hours, model_list,
     check_empty(df, logger, 'filter_by_hour')
     return df
 
+# def change_model_column_name(df, logger, model_list):
+def change_model_column_name(df, logger, model):
+    if df is None:
+        return df
+    if check_empty(df, logger, 'change_model_column_name'):
+        return df
+    else:
+        df['MODEL'] = df['MODEL'].apply(
+            lambda x: model
+            if plot_util.get_model_stats_key(model_colors.model_alias, model) == x
+            else x
+        )
+        return df
+
 def get_preprocessed_data(logger, stats_dir, prune_dir, output_base_template, 
                           verif_case, verif_type, line_type, date_type, 
                           date_range, eval_period, date_hours, fleads, 
@@ -357,9 +377,9 @@ def get_preprocessed_data(logger, stats_dir, prune_dir, output_base_template,
         logger, date_type, date_range, date_hours, fleads
     )
     pruned_data_dir = run_prune_data(
-        logger, stats_dir, prune_dir, output_base_template, verif_case, 
-        verif_type, line_type, valid_range, eval_period, var_name, 
-        fcst_var_names, model_list, domain, fcst_lev
+        logger, stats_dir, prune_dir, output_base_template, verif_case, verif_type, 
+        line_type, valid_range, eval_period, var_name, fcst_var_names, model_list, 
+        domain, fcst_lev
     )
     df = create_df(
         logger, stats_dir, pruned_data_dir, line_type, date_range, model_list,
@@ -380,11 +400,8 @@ def run_filters(df, logger, verif_type, fcst_var_names, obs_var_names,
     df = create_lead_hours(df, logger)
     df = create_valid_datetime(df, logger)
     df = create_init_datetime(df, logger)
-    df = filter_by_date_range(
-        df, logger, date_type, date_range, model_list, model_queries
-    )
-    df = filter_by_hour(
-        df, logger, date_type, date_hours, model_list, model_queries
-    )
+    df = filter_by_date_range(df, logger, date_type, date_range, model_list, model_queries)
+    df = filter_by_hour(df, logger, date_type, date_hours, model_list, model_queries)
+    df = change_model_column_name(df, logger, model_list)
     return df
 

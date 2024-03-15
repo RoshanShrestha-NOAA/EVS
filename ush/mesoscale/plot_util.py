@@ -13,11 +13,11 @@ warnings.filterwarnings('ignore')
 
 def get_memory_usage():
     total_memory, used_memory, free_memory = map(
-        int,
+        int, 
         os.popen('free -t -m').readlines()[-1].split()[1:]
     )
     return ' '.join((
-        "RAM memory % used:",
+        "RAM memory % used:", 
         str(round((used_memory/total_memory) * 100, 2))
     ))
 
@@ -2238,3 +2238,12 @@ def get_MCTC_cols_for_sum(n_cats, i_vals, ctc_metric_name):
         sys.exit(1)
     return cols
 
+def get_model_stats_key(model_alias_dict, requested_model):
+    if requested_model not in tuple(model_alias_dict):
+        return requested_model
+    else:
+        stats_key = model_alias_dict[requested_model]['stats_key']
+        if not stats_key:
+            return requested_model
+        else:
+            return stats_key

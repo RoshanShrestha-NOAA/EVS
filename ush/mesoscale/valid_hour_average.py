@@ -2,9 +2,10 @@
 ###############################################################################
 #
 # Name:          valid_hour_average.py
-# Contact(s):    Marcel Caron
+# Contact(s):    Marcel Caron, Roshan
 # Developed:     Nov. 22, 2021 by Marcel Caron 
 # Last Modified: Jul. 13, 2023 by Marcel Caron             
+# Last Modified: Feb. 25, 2024 by Roshan Shrestha
 # Title:         Line plot of verification metric as a function of 
 #                valid or init hour
 # Abstract:      Plots METplus output (e.g., BCRMSE) as a line plot, 
@@ -381,6 +382,22 @@ def plot_valid_hour_average(df: pd.DataFrame, logger: logging.Logger,
                                   + f" not found and will not be plotted.")
             logger.warning(warning_string)
             logger.warning("Continuing ...")
+
+    if df.empty:
+        logger.warning(f"Empty Dataframe. Continuing onto next plot...")
+        plt.close(num)
+        logger.info("========================================")
+        return None
+    group_by = ['MODEL','ANTI_DATE_HOURS']
+    if sample_equalization:
+        df, bool_success = plot_util.equalize_samples(logger, df, group_by)
+        if not bool_success:
+            sample_equalization = False
+        if df.empty:
+            logger.warning(f"Empty Dataframe. Continuing onto next plot...")
+            plt.close(num)
+            logger.info("========================================")
+            return None
 
     # Remove from model_list the models that don't exist in the dataframe
     cols_to_keep = [

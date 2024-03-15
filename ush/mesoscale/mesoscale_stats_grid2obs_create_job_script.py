@@ -283,7 +283,6 @@ elif job_type == 'generate':
         'exports': ['FHR_END','FHR_INCR']
     }
     if NEST == 'spc_otlk':
-        print('testing mask file RSRS')
         job_dependent_vars['MASK_POLY_LIST'] = {
             'exec_value': '',
             'bash_value': '',
@@ -309,7 +308,6 @@ elif job_type == 'generate':
                 ))
             ) + '"'
         }
-        print('maskRSRS',job_dependent_vars['MASK_POLY_LIST'])
     else:
         job_env_vars_dict['MASK_POLY_LIST'] = MASK_POLY_LIST
 
