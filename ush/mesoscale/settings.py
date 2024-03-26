@@ -87,14 +87,24 @@ class Paths():
 
         default value instead.
         '''
-        self.special_paths = {
+        if os.environ['VERIF_CASE'] == "headline" :
+            self.special_paths = {
                 'rrfs': {
                     'data_dir': f"/lfs/h2/emc/vpppg/noscrub/marcel.caron/{os.environ['NET']}/{os.environ['evs_ver_2d']}/stats/cam",
                     'file_template': "{MODEL}.{valid?fmt=%Y%m%d}/"+f"{os.environ['NET']}"+".stats.{MODEL}*grid2obs*v{valid?fmt=%Y%m%d}.stat",
                 },
-        }
+            }
+        else :
+            self.special_paths = {
+                'rrfs': {
+                    'data_dir': f"/lfs/h2/emc/vpppg/noscrub/marcel.caron/{os.environ['NET']}/{os.environ['evs_ver_2d']}/stats/cam",
+                    'file_template': "{MODEL}.{valid?fmt=%Y%m%d}/"+f"{os.environ['NET']}"+".stats.{MODEL}*"+f"{os.environ['VERIF_CASE']}"+"*v{valid?fmt=%Y%m%d}.stat",
+                },
+            }
                     # 'file_template': '',
                     # 'file_template': "rrfs.{valid?fmt=%Y%m%d}/evs.stats.rrfs*grid2obs*v{valid?fmt=%Y%m%d}.stat",
+                    # 'file_template': "{MODEL}.{valid?fmt=%Y%m%d}/"+f"{os.environ['NET']}"+".stats.{MODEL}*grid2obs*v{valid?fmt=%Y%m%d}.stat",
+                    # 'file_template': "{MODEL}.{valid?fmt=%Y%m%d}/"+f"{os.environ['NET']}"+".stats.{MODEL}*"+f"{os.environ['VERIF_CASE']}"+"*v{valid?fmt=%Y%m%d}.stat",
 
 
 class Presets():

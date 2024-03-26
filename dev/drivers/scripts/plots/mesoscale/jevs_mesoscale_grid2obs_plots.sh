@@ -15,7 +15,7 @@ export machine=WCOSS2
 
 # ECF Settings
 export SENDECF=YES
-export SENDCOM=NO
+export SENDCOM=YES
 export KEEPDATA=YES
 export SENDDBN=NO
 export SENDDBN_NTC=
@@ -25,8 +25,8 @@ export jobid=$job.${PBS_JOBID:-$$}
 export SITE=$(cat /etc/cluster_name)
 export USE_CFP=YES
 export nproc=128
-#export evs_run_mode="production"
-export evs_run_mode="test"
+export evs_run_mode="production"
+# export evs_run_mode="test"
 
 # General Verification Settings
 export envir=prod
@@ -54,6 +54,7 @@ export PYTHONPATH=$HOMEevs/ush/$COMPONENT:$PYTHONPATH
 export evs_ver_2d=$(echo $evs_ver | cut -d'.' -f1-2)
 
 # Developer Settings
+#export COMIN=/lfs/h2/emc/vpppg/noscrub/${USER}/$NET/$evs_ver_2d
 export COMIN=/lfs/h2/emc/vpppg/noscrub/emc.vpppg/$NET/$evs_ver_2d
 export DATAROOT=/lfs/h2/emc/stmp/${USER}/evs_test/$envir/tmp
 #export COMOUT=/lfs/h2/emc/ptmp/${USER}/$NET/$evs_ver_2d/$STEP/$COMPONENT
