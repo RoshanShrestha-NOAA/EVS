@@ -5,7 +5,7 @@ graphics = {
     'mesoscale':{
         'precip':{
             'ccpa':{
-                'domain_group1, nam, rap?shift=-3, gfs, rrfs':{
+                'domain_group1, nam, rap?shift=-3, gfs, rrfs, namnest':{
                     'threshold_average':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',
@@ -119,7 +119,7 @@ graphics = {
                         }
                     },
                 },
-                'domain_group2, nam, rap?shift=-3, gfs, rrfs':{
+                'domain_group2, nam, rap?shift=-3, gfs, rrfs, namnest':{
                     'threshold_average':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',
@@ -233,7 +233,7 @@ graphics = {
                         }
                     },
                 },
-                'domain_group3, nam, rap?shift=-3, gfs, rrfs':{
+                'domain_group3, nam, rap?shift=-3, gfs, rrfs, namnest':{
                     'threshold_average':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',
@@ -347,7 +347,7 @@ graphics = {
                         }
                     },
                 },
-                'domain_group4, nam, rap?shift=-3, gfs, rrfs':{
+                'domain_group4, nam, rap?shift=-3, gfs, rrfs, namnest':{
                     'threshold_average':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',
@@ -461,7 +461,7 @@ graphics = {
                         }
                     },
                 },
-                'domain_group5, nam, rap?shift=-3, gfs, rrfs':{
+                'domain_group5, nam, rap?shift=-3, gfs, rrfs, namnest':{
                     'threshold_average':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',
@@ -995,7 +995,7 @@ graphics = {
                         }
                     },
                 },
-                'domain_group1, nam, rap, gfs, rrfs':{
+                'domain_group1, nam, rap, gfs, rrfs, namnest':{
                     'spatial_map':{
                         'DATE_TYPE':'VALID',
                         'VALID_BEG':'',
@@ -1024,7 +1024,7 @@ graphics = {
                         }
                     },
                 },
-                'domain_group2, nam, rap, gfs, rrfs':{
+                'domain_group2, nam, rap, gfs, rrfs, namnest':{
                     'spatial_map':{
                         'DATE_TYPE':'VALID',
                         'VALID_BEG':'',

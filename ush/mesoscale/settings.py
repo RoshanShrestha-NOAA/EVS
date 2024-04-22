@@ -93,10 +93,18 @@ class Paths():
                     'data_dir': f"/lfs/h2/emc/vpppg/noscrub/marcel.caron/{os.environ['NET']}/{os.environ['evs_ver_2d']}/stats/cam",
                     'file_template': "{MODEL}.{valid?fmt=%Y%m%d}/"+f"{os.environ['NET']}"+".stats.{MODEL}*grid2obs*v{valid?fmt=%Y%m%d}.stat",
                 },
+                'namnest': {
+                    'data_dir': f"/lfs/h2/emc/vpppg/noscrub/marcel.caron/{os.environ['NET']}/{os.environ['evs_ver_2d']}/stats/cam",
+                    'file_template': "{MODEL}.{valid?fmt=%Y%m%d}/"+f"{os.environ['NET']}"+".stats.{MODEL}*grid2obs*v{valid?fmt=%Y%m%d}.stat",
+                },
             }
         else :
             self.special_paths = {
                 'rrfs': {
+                    'data_dir': f"/lfs/h2/emc/vpppg/noscrub/marcel.caron/{os.environ['NET']}/{os.environ['evs_ver_2d']}/stats/cam",
+                    'file_template': "{MODEL}.{valid?fmt=%Y%m%d}/"+f"{os.environ['NET']}"+".stats.{MODEL}*"+f"{os.environ['VERIF_CASE']}"+"*v{valid?fmt=%Y%m%d}.stat",
+                },
+                'namnest': {
                     'data_dir': f"/lfs/h2/emc/vpppg/noscrub/marcel.caron/{os.environ['NET']}/{os.environ['evs_ver_2d']}/stats/cam",
                     'file_template': "{MODEL}.{valid?fmt=%Y%m%d}/"+f"{os.environ['NET']}"+".stats.{MODEL}*"+f"{os.environ['VERIF_CASE']}"+"*v{valid?fmt=%Y%m%d}.stat",
                 },

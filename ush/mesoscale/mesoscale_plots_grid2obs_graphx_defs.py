@@ -5,7 +5,7 @@ graphics = {
     'mesoscale':{
         'grid2obs':{
             'raob':{
-                'lead_average_group, nam, rap?shift=-3, gfs, rrfs': {
+                'lead_average_group, nam, rap?shift=-3, gfs, rrfs, namnest': {
                     'lead_average':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',
@@ -48,7 +48,7 @@ graphics = {
                         }
                     },
                 },
-                'nam, rap?shift=-3, gfs, rrfs': {
+                'nam, rap?shift=-3, gfs, rrfs, namnest': {
                     'stat_by_level':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',
