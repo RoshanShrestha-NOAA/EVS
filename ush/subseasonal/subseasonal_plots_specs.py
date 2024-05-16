@@ -283,6 +283,12 @@ class PlotSpecs:
                                           +'Geopotential Height Anomaly'),
             'HGT_ANOM_WEEKS3_4AVG/P500': ('500 hPa Weeks 3-4 Avg '
                                           +'Geopotential Height Anomaly'),
+            'HGT_WEEKLYAVG/P500': ('500 hPa Weekly Avg '
+                                   +'Geopotential Height'),
+            'HGT_DAYS6_10AVG/P500': ('500 hPa Days 6-10 Avg '
+                                     +'Geopotential Height'),
+            'HGT_WEEKS3_4AVG/P500': ('500 hPa Weeks 3-4 Avg '
+                                     +'Geopotential Height'),
             'HGT_DECOMP_WV1_0-3/P500': ('500 hPa Geopotential Height: '
                                         +'Waves 0-3'),
             'HGT_DECOMP_WV1_0-20/P500': ('500 hPa Geopotential Height: '
@@ -385,7 +391,9 @@ class PlotSpecs:
             'TMP/P925': '925 hPa Temperature',
             'TMP/P1000': '1000 hPa Temperature',
             'TMP/TROPOPAUSE': 'Tropopause Temperature',
-            'TMP/Z2': '2 meter Temperature',
+            'TMP_WEEKLYAVG/Z2': '2 meter Weekly Avg Temperature',
+            'TMP_DAYS6_10AVG/Z2': '2 meter Days 6-10 Avg Temperature',
+            'TMP_WEEKS3_4AVG/Z2': '2 meter Weeks 3-4 Avg Temperature',
             'TMP_ANOM_WEEKLYAVG/Z2': '2 meter Weekly Avg Temperature Anomaly',
             'TMP_ANOM_DAYS6_10AVG/Z2': ('2 meter Days 6-10 Avg Temperature ' 
                                         +'Anomaly'),
