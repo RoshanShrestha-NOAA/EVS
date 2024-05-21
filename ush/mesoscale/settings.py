@@ -90,25 +90,29 @@ class Paths():
         if os.environ['VERIF_CASE'] == "headline" :
             self.special_paths = {
                 'rrfs': {
-                    'data_dir': f"/lfs/h2/emc/vpppg/noscrub/marcel.caron/{os.environ['NET']}/{os.environ['evs_ver_2d']}/stats/cam",
+                    'data_dir': f"{os.environ['COMINrrfs']}",
                     'file_template': "{MODEL}.{valid?fmt=%Y%m%d}/"+f"{os.environ['NET']}"+".stats.{MODEL}*grid2obs*v{valid?fmt=%Y%m%d}.stat",
                 },
                 'namnest': {
-                    'data_dir': f"/lfs/h2/emc/vpppg/noscrub/marcel.caron/{os.environ['NET']}/{os.environ['evs_ver_2d']}/stats/cam",
+                    'data_dir': f"{os.environ['COMINnamnest']}",
                     'file_template': "{MODEL}.{valid?fmt=%Y%m%d}/"+f"{os.environ['NET']}"+".stats.{MODEL}*grid2obs*v{valid?fmt=%Y%m%d}.stat",
                 },
             }
         else :
             self.special_paths = {
                 'rrfs': {
-                    'data_dir': f"/lfs/h2/emc/vpppg/noscrub/marcel.caron/{os.environ['NET']}/{os.environ['evs_ver_2d']}/stats/cam",
+                    'data_dir': f"{os.environ['COMINrrfs']}",
                     'file_template': "{MODEL}.{valid?fmt=%Y%m%d}/"+f"{os.environ['NET']}"+".stats.{MODEL}*"+f"{os.environ['VERIF_CASE']}"+"*v{valid?fmt=%Y%m%d}.stat",
                 },
                 'namnest': {
-                    'data_dir': f"/lfs/h2/emc/vpppg/noscrub/marcel.caron/{os.environ['NET']}/{os.environ['evs_ver_2d']}/stats/cam",
+                    'data_dir': f"{os.environ['COMINnamnest']}",
                     'file_template': "{MODEL}.{valid?fmt=%Y%m%d}/"+f"{os.environ['NET']}"+".stats.{MODEL}*"+f"{os.environ['VERIF_CASE']}"+"*v{valid?fmt=%Y%m%d}.stat",
                 },
             }
+                    #  'data_dir': f"/lfs/h2/emc/vpppg/noscrub/marcel.caron/{os.environ['NET']}/{os.environ['evs_ver_2d']}/stats/cam",
+                    #  'data_dir': f"/lfs/h2/emc/vpppg/noscrub/marcel.caron/{os.environ['NET']}/{os.environ['evs_ver_2d']}/stats/cam",
+                    #  'data_dir': f"/lfs/h2/emc/vpppg/noscrub/marcel.caron/{os.environ['NET']}/{os.environ['evs_ver_2d']}/stats/cam",
+                    #  'data_dir': f"/lfs/h2/emc/vpppg/noscrub/marcel.caron/{os.environ['NET']}/{os.environ['evs_ver_2d']}/stats/cam",
                     # 'file_template': '',
                     # 'file_template': "rrfs.{valid?fmt=%Y%m%d}/evs.stats.rrfs*grid2obs*v{valid?fmt=%Y%m%d}.stat",
                     # 'file_template': "{MODEL}.{valid?fmt=%Y%m%d}/"+f"{os.environ['NET']}"+".stats.{MODEL}*grid2obs*v{valid?fmt=%Y%m%d}.stat",
@@ -831,7 +835,7 @@ class ModelSpecs():
             'NAM': {'color': '#1e3cff',
                      'marker': 'o', 'markersize': 10,
                      'linestyle': 'solid', 'linewidth': 1.8},
-            'NAM_NEST': {'color': '#1e3cff',
+            'NAM_NEST': {'color': '#00dc00',
                      'marker': 'o', 'markersize': 10,
                      'linestyle': 'solid', 'linewidth': 1.8},
             'RRFS': {'color': '#696969',

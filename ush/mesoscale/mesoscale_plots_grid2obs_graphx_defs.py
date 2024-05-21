@@ -390,7 +390,7 @@ graphics = {
                 }
             },
             'metar':{
-                'lead_average_group, nam, rap?shift=-3, gfs': {
+                'lead_average_group, nam, rap?shift=-3, gfs, rrfs, namnest': {
                     'lead_average':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',
@@ -517,7 +517,7 @@ graphics = {
                         }
                     },
                 },
-                'nam, rap?shift=-3, gfs': {
+                'nam, rap?shift=-3, gfs, rrfs, namnest': {
                     'valid_hour_average':{
                         'DATE_TYPE':'INIT',
                         'VALID_BEG':'',
